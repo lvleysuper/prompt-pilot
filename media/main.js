@@ -1,5 +1,20 @@
 // Prompt Pilot WebView 主要 JavaScript 文件
 
+// 全局错误处理
+window.addEventListener('error', function (e) {
+	console.error('🚫 全局错误:', e.error);
+	const errorDiv = document.getElementById('errorMessage');
+	if (errorDiv) {
+		errorDiv.textContent = '页面加载出错: ' + (e.error?.message || '未知错误');
+		errorDiv.style.display = 'block';
+	}
+});
+
+// 资源加载失败处理
+window.addEventListener('load', function () {
+	console.log('🎉 页面加载完成');
+});
+
 (function () {
 	const vscode = acquireVsCodeApi();
 
@@ -33,25 +48,109 @@
 		errorMessage: document.getElementById('errorMessage')
 	};
 
+	// 更新元素引用（防止 null 引用）
+	function updateElementReferences() {
+		// 重新获取所有元素
+		elements.problemList = document.getElementById('problemList');
+		elements.problemDetails = document.getElementById('problemDetails');
+		elements.problemTitle = document.getElementById('problemTitle');
+		elements.problemDifficulty = document.getElementById('problemDifficulty');
+		elements.problemDescription = document.getElementById('problemDescription');
+		elements.problemHints = document.getElementById('problemHints');
+		elements.promptInput = document.getElementById('promptInput');
+		elements.analyzePromptBtn = document.getElementById('analyzePromptBtn');
+		elements.generateCodeBtn = document.getElementById('generateCodeBtn');
+		elements.promptAnalysis = document.getElementById('promptAnalysis');
+		elements.codeSection = document.getElementById('codeSection');
+		elements.generatedCode = document.getElementById('generatedCode');
+		elements.explanation = document.getElementById('explanation');
+		elements.acceptCodeBtn = document.getElementById('acceptCodeBtn');
+		elements.runTestsBtn = document.getElementById('runTestsBtn');
+		elements.testSection = document.getElementById('testSection');
+		elements.testResults = document.getElementById('testResults');
+		elements.welcomeScreen = document.getElementById('welcomeScreen');
+		elements.loadingOverlay = document.getElementById('loadingOverlay');
+		elements.loadingMessage = document.getElementById('loadingMessage');
+		elements.errorMessage = document.getElementById('errorMessage');
+	}
+
 	// 初始化
 	function init() {
-		setupEventListeners();
-		loadProblems();
+		console.log('🚀 Prompt Pilot WebView 正在初始化...');
+
+		try {
+			// 验证关键 DOM 元素
+			const requiredElements = [
+				'problemList', 'problemDetails', 'welcomeScreen',
+				'loadingOverlay', 'errorMessage', 'problemTitle',
+				'promptInput', 'generateCodeBtn', 'analyzePromptBtn'
+			];
+
+			for (const elementId of requiredElements) {
+				const element = document.getElementById(elementId);
+				if (!element) {
+					console.warn(`⚠️ 元素未找到: ${elementId}`);
+				} else {
+					console.log(`✅ 找到元素: ${elementId}`);
+				}
+			}
+
+			// 重新获取元素引用（防止null引用）
+			updateElementReferences();
+
+			setupEventListeners();
+			loadProblems();
+			console.log('🎉 初始化完成');
+
+		} catch (error) {
+			console.error('❌ 初始化失败:', error);
+			showError(`初始化失败: ${error.message}`);
+		}
 	}
 
 	// 设置事件监听器
 	function setupEventListeners() {
-		// 按钮事件
-		elements.analyzePromptBtn.addEventListener('click', analyzePrompt);
-		elements.generateCodeBtn.addEventListener('click', generateCode);
-		elements.acceptCodeBtn.addEventListener('click', acceptCode);
-		elements.runTestsBtn.addEventListener('click', runTests);
+		console.log('设置事件监听器...');
 
-		// Prompt输入事件
-		elements.promptInput.addEventListener('input', onPromptInput);
+		try {
+			// 按钮事件（添加空值检查）
+			if (elements.analyzePromptBtn) {
+				elements.analyzePromptBtn.addEventListener('click', analyzePrompt);
+				console.log('✅ analyzePromptBtn 事件监听器已设置');
+			} else {
+				console.warn('⚠️ analyzePromptBtn 元素未找到');
+			}
 
-		// 监听来自扩展的消息
-		window.addEventListener('message', handleExtensionMessage);
+			if (elements.generateCodeBtn) {
+				elements.generateCodeBtn.addEventListener('click', generateCode);
+				console.log('✅ generateCodeBtn 事件监听器已设置');
+			} else {
+				console.warn('⚠️ generateCodeBtn 元素未找到');
+			}
+
+			if (elements.acceptCodeBtn) {
+				elements.acceptCodeBtn.addEventListener('click', acceptCode);
+				console.log('✅ acceptCodeBtn 事件监听器已设置');
+			}
+
+			if (elements.runTestsBtn) {
+				elements.runTestsBtn.addEventListener('click', runTests);
+				console.log('✅ runTestsBtn 事件监听器已设置');
+			}
+
+			// Prompt输入事件
+			if (elements.promptInput) {
+				elements.promptInput.addEventListener('input', onPromptInput);
+				console.log('✅ promptInput 事件监听器已设置');
+			}
+
+			// 监听来自扩展的消息
+			window.addEventListener('message', handleExtensionMessage);
+			console.log('✅ 扩展消息监听器已设置');
+
+		} catch (error) {
+			console.error('❌ 事件监听器设置失败:', error);
+		}
 	}
 
 	// 处理扩展消息
@@ -346,14 +445,31 @@
 
 	// 显示错误消息
 	function showError(message) {
+		console.error('❌ 错误:', message);
 		hideLoading();
-		elements.errorMessage.textContent = message;
-		elements.errorMessage.style.display = 'block';
 
-		// 3秒后自动隐藏
-		setTimeout(() => {
-			elements.errorMessage.style.display = 'none';
-		}, 3000);
+		// 尝试多种方式显示错误
+		const errorElement = elements.errorMessage || document.getElementById('errorMessage');
+
+		if (errorElement) {
+			errorElement.textContent = message;
+			errorElement.style.display = 'block';
+			console.log('✅ 错误消息已显示');
+
+			// 3秒后自动隐藏
+			setTimeout(() => {
+				errorElement.style.display = 'none';
+			}, 3000);
+		} else {
+			// 如果错误元素不存在，使用 alert 作为备用方案
+			console.warn('⚠️ 错误元素未找到，使用 alert');
+			alert('错误: ' + message);
+		}
+
+		// 在控制台显示堆栈信息
+		if (typeof message === 'object' && message.stack) {
+			console.error('堆栈信息:', message.stack);
+		}
 	}
 
 	// 显示成功消息
