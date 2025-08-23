@@ -1,0 +1,117 @@
+{
+	"id": "valid-parentheses",
+	"title": "有效的括号",
+	"description": "给定一个只包括 '('，')'，'{'，'}'，'['，']' 的字符串 s ，判断字符串是否有效。有效字符串需满足：左括号必须用相同类型的右括号闭合。左括号必须以正确的顺序闭合。",
+	"difficulty": "Easy",
+	"category": "栈",
+	"templateCode": "function isValid(s: string): boolean {\n    // TODO: 判断括号是否有效\n    return false;\n}",
+	"testCases": [
+		{
+			"id": "case1",
+			"input": "s = \"()\"",
+			"expectedOutput": "true",
+			"description": "简单的一对括号"
+		},
+		{
+			"id": "case2",
+			"input": "s = \"()[]{}\"",
+			"expectedOutput": "true",
+			"description": "多种括号的有效组合"
+		},
+		{
+			"id": "case3",
+			"input": "s = \"(]\"",
+			"expectedOutput": "false",
+			"description": "错误的括号匹配"
+		},
+		{
+			"id": "case4",
+			"input": "s = \"([)]\"",
+			"expectedOutput": "false",
+			"description": "交叉的括号顺序"
+		}
+	],
+	"topPrompts": [
+		{
+			"id": "prompt1",
+			"rank": 1,
+			"prompt": "请实现一个函数判断括号字符串是否有效。要求：1) 使用栈数据结构 2) 遍历字符串，遇到左括号入栈，遇到右括号检查栈顶是否匹配 3) 最后检查栈是否为空 4) 处理空字符串情况 5) 时间复杂度O(n)，空间复杂度O(n)。请提供详细的算法步骤说明。",
+			"author": "stack_master",
+			"score": 95,
+			"analysis": {
+				"structure": [
+					"问题描述",
+					"数据结构选择",
+					"算法步骤",
+					"复杂度分析",
+					"边界处理"
+				],
+				"techniques": [
+					"栈的应用",
+					"字符串遍历",
+					"括号匹配规则",
+					"复杂度要求"
+				],
+				"scenarios": [
+					"数据结构应用",
+					"字符串处理",
+					"算法设计"
+				],
+				"explanation": "完整的prompt结构，明确了数据结构选择、算法步骤和性能要求，是优秀的问题解决指导"
+			},
+			"createdAt": "2024-01-05"
+		},
+		{
+			"id": "prompt2",
+			"rank": 2,
+			"prompt": "用栈实现括号匹配。左括号入栈，右括号时弹出栈顶元素检查是否匹配。最终栈为空则有效。",
+			"author": "quick_solver",
+			"score": 82,
+			"analysis": {
+				"structure": [
+					"解决方案",
+					"核心算法",
+					"判断条件"
+				],
+				"techniques": [
+					"栈操作",
+					"匹配检查",
+					"结果判断"
+				],
+				"scenarios": [
+					"快速解决方案",
+					"核心思路提示"
+				],
+				"explanation": "简洁明了的解决思路，适合有经验的开发者快速实现"
+			},
+			"createdAt": "2024-01-06"
+		},
+		{
+			"id": "prompt3",
+			"rank": 3,
+			"prompt": "写一个函数检查括号是否配对正确，考虑三种括号类型。",
+			"author": "beginner_coder",
+			"score": 70,
+			"analysis": {
+				"structure": [
+					"基本要求",
+					"输入说明"
+				],
+				"techniques": [
+					"配对检查",
+					"多类型处理"
+				],
+				"scenarios": [
+					"基础实现需求"
+				],
+				"explanation": "过于简单，缺乏具体的实现指导和技术细节"
+			},
+			"createdAt": "2024-01-07"
+		}
+	],
+	"hints": [
+		"使用栈来存储待匹配的左括号",
+		"建立括号映射关系便于快速匹配",
+		"注意字符串为空或栈为空时的边界情况"
+	]
+}

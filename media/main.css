@@ -1,0 +1,640 @@
+/* Prompt Pilot 主样式文件 */
+
+.container {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 20px;
+}
+
+header {
+	text-align: center;
+	margin-bottom: 30px;
+	padding: 20px 0;
+	border-bottom: 1px solid var(--vscode-widget-border);
+}
+
+header h1 {
+	font-size: 2em;
+	font-weight: bold;
+	margin-bottom: 8px;
+	color: var(--vscode-textLink-foreground);
+}
+
+header p {
+	color: var(--vscode-descriptionForeground);
+	font-size: 1.1em;
+}
+
+/* 主内容布局 */
+.main-content {
+	display: grid;
+	grid-template-columns: 300px 1fr;
+	gap: 30px;
+	min-height: 600px;
+}
+
+/* 侧边栏 */
+.sidebar {
+	background: var(--vscode-sideBar-background);
+	padding: 20px;
+	border-radius: 8px;
+	border: 1px solid var(--vscode-widget-border);
+}
+
+.problem-selector h3 {
+	margin-bottom: 15px;
+	font-weight: bold;
+	color: var(--vscode-foreground);
+}
+
+.problem-list {
+	max-height: 500px;
+	overflow-y: auto;
+}
+
+.problem-item {
+	padding: 12px;
+	margin-bottom: 8px;
+	border: 1px solid var(--vscode-widget-border);
+	border-radius: 6px;
+	cursor: pointer;
+	transition: all 0.2s ease;
+}
+
+.problem-item:hover {
+	background: var(--vscode-list-hoverBackground);
+	border-color: var(--vscode-focusBorder);
+}
+
+.problem-item.active {
+	background: var(--vscode-list-activeSelectionBackground);
+	color: var(--vscode-list-activeSelectionForeground);
+}
+
+.problem-item .title {
+	font-weight: bold;
+	margin-bottom: 4px;
+}
+
+.problem-item .difficulty {
+	font-size: 0.9em;
+	padding: 2px 6px;
+	border-radius: 4px;
+}
+
+.difficulty.Easy {
+	background: var(--vscode-testing-iconPassed);
+	color: white;
+}
+
+.difficulty.Medium {
+	background: var(--vscode-testing-iconQueued);
+	color: white;
+}
+
+.difficulty.Hard {
+	background: var(--vscode-testing-iconFailed);
+	color: white;
+}
+
+/* 内容区域 */
+.content-area {
+	background: var(--vscode-editor-background);
+	border-radius: 8px;
+	border: 1px solid var(--vscode-widget-border);
+}
+
+.problem-details {
+	padding: 30px;
+}
+
+.problem-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 20px;
+	padding-bottom: 15px;
+	border-bottom: 1px solid var(--vscode-widget-border);
+}
+
+.problem-header h2 {
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+.problem-description {
+	margin-bottom: 30px;
+	line-height: 1.6;
+	color: var(--vscode-foreground);
+}
+
+/* Prompt 输入区域 */
+.prompt-section {
+	margin-bottom: 30px;
+}
+
+.prompt-section h3 {
+	margin-bottom: 15px;
+	font-weight: bold;
+}
+
+.prompt-tips {
+	background: var(--vscode-textBlockQuote-background);
+	border: 1px solid var(--vscode-textBlockQuote-border);
+	border-radius: 6px;
+	padding: 12px;
+	margin-bottom: 15px;
+}
+
+.prompt-tips p {
+	margin: 0;
+	font-size: 0.95em;
+	color: var(--vscode-descriptionForeground);
+}
+
+#promptInput {
+	width: 100%;
+	min-height: 120px;
+	resize: vertical;
+	font-family: var(--vscode-editor-font-family);
+	font-size: 14px;
+	line-height: 1.4;
+	margin-bottom: 15px;
+}
+
+.prompt-actions {
+	display: flex;
+	gap: 10px;
+	margin-bottom: 20px;
+}
+
+.btn {
+	padding: 10px 20px;
+	border-radius: 6px;
+	font-weight: 500;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	border: 1px solid transparent;
+}
+
+.btn.primary {
+	background: var(--vscode-button-background);
+	color: var(--vscode-button-foreground);
+}
+
+.btn.primary:hover {
+	background: var(--vscode-button-hoverBackground);
+}
+
+.btn.secondary {
+	background: var(--vscode-button-secondaryBackground);
+	color: var(--vscode-button-secondaryForeground);
+}
+
+.btn.secondary:hover {
+	background: var(--vscode-button-secondaryHoverBackground);
+}
+
+.btn:disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
+}
+
+/* Prompt 分析结果 */
+.prompt-analysis {
+	background: var(--vscode-textCodeBlock-background);
+	border: 1px solid var(--vscode-widget-border);
+	border-radius: 6px;
+	padding: 20px;
+	margin-top: 15px;
+}
+
+.analysis-score {
+	display: flex;
+	align-items: center;
+	margin-bottom: 15px;
+}
+
+.score-badge {
+	background: var(--vscode-badge-background);
+	color: var(--vscode-badge-foreground);
+	padding: 4px 12px;
+	border-radius: 12px;
+	font-weight: bold;
+	margin-right: 10px;
+}
+
+.analysis-feedback {
+	margin-bottom: 15px;
+	line-height: 1.5;
+}
+
+.improvements {
+	margin-top: 10px;
+}
+
+.improvements ul {
+	margin: 0;
+	padding-left: 20px;
+}
+
+.improvements li {
+	margin-bottom: 5px;
+	line-height: 1.4;
+}
+
+/* 代码区域 */
+.code-section {
+	margin-bottom: 30px;
+}
+
+.code-section h3 {
+	margin-bottom: 15px;
+	font-weight: bold;
+}
+
+.code-container {
+	background: var(--vscode-textCodeBlock-background);
+	border: 1px solid var(--vscode-widget-border);
+	border-radius: 6px;
+	margin-bottom: 15px;
+	overflow: hidden;
+}
+
+.code-container pre {
+	margin: 0;
+	padding: 20px;
+	overflow-x: auto;
+	font-family: var(--vscode-editor-font-family);
+	font-size: var(--vscode-editor-font-size);
+	line-height: 1.4;
+}
+
+.code-container code {
+	background: none;
+	padding: 0;
+}
+
+.code-actions {
+	display: flex;
+	gap: 10px;
+	margin-bottom: 15px;
+}
+
+.explanation {
+	background: var(--vscode-textBlockQuote-background);
+	border: 1px solid var(--vscode-textBlockQuote-border);
+	border-radius: 6px;
+	padding: 15px;
+	line-height: 1.5;
+}
+
+/* 测试结果区域 */
+.test-section {
+	margin-bottom: 30px;
+}
+
+.test-section h3 {
+	margin-bottom: 15px;
+	font-weight: bold;
+}
+
+.test-results {
+	space-y: 10px;
+}
+
+.test-result {
+	display: flex;
+	align-items: center;
+	padding: 12px;
+	border: 1px solid var(--vscode-widget-border);
+	border-radius: 6px;
+	margin-bottom: 8px;
+}
+
+.test-result.passed {
+	background: var(--vscode-testing-iconPassed);
+	background: rgba(0, 122, 0, 0.1);
+	border-color: var(--vscode-testing-iconPassed);
+}
+
+.test-result.failed {
+	background: rgba(229, 20, 0, 0.1);
+	border-color: var(--vscode-testing-iconFailed);
+}
+
+.test-status {
+	font-weight: bold;
+	margin-right: 10px;
+	min-width: 60px;
+}
+
+.test-status.passed {
+	color: var(--vscode-testing-iconPassed);
+}
+
+.test-status.failed {
+	color: var(--vscode-testing-iconFailed);
+}
+
+.test-description {
+	flex: 1;
+}
+
+.test-time {
+	color: var(--vscode-descriptionForeground);
+	font-size: 0.9em;
+}
+
+.test-error {
+	margin-top: 8px;
+	padding: 8px;
+	background: var(--vscode-inputValidation-errorBackground);
+	color: var(--vscode-inputValidation-errorForeground);
+	border-radius: 4px;
+	font-family: var(--vscode-editor-font-family);
+	font-size: 0.9em;
+}
+
+/* 提示区域 */
+.hints-section {
+	margin-bottom: 30px;
+}
+
+.hints-section h3 {
+	margin-bottom: 15px;
+	font-weight: bold;
+}
+
+.hints {
+	background: var(--vscode-textBlockQuote-background);
+	border: 1px solid var(--vscode-textBlockQuote-border);
+	border-left: 4px solid var(--vscode-textLink-foreground);
+	padding: 15px;
+	border-radius: 6px;
+}
+
+.hints ul {
+	margin: 0;
+	padding-left: 20px;
+}
+
+.hints li {
+	margin-bottom: 8px;
+	line-height: 1.4;
+}
+
+/* 欢迎屏幕 */
+.welcome-screen {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 500px;
+	text-align: center;
+	padding: 40px;
+}
+
+.welcome-content h2 {
+	font-size: 1.8em;
+	font-weight: bold;
+	margin-bottom: 15px;
+	color: var(--vscode-textLink-foreground);
+}
+
+.welcome-content p {
+	font-size: 1.1em;
+	color: var(--vscode-descriptionForeground);
+	margin-bottom: 40px;
+}
+
+.features {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	gap: 30px;
+	margin-top: 30px;
+}
+
+.feature {
+	background: var(--vscode-sideBar-background);
+	padding: 25px;
+	border-radius: 8px;
+	border: 1px solid var(--vscode-widget-border);
+}
+
+.feature h4 {
+	font-size: 1.2em;
+	font-weight: bold;
+	margin-bottom: 10px;
+	color: var(--vscode-foreground);
+}
+
+.feature p {
+	color: var(--vscode-descriptionForeground);
+	line-height: 1.5;
+	margin: 0;
+}
+
+/* 加载和错误状态 */
+.loading-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0, 0, 0, 0.5);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	z-index: 1000;
+}
+
+.loading-spinner {
+	width: 40px;
+	height: 40px;
+	border: 4px solid var(--vscode-widget-border);
+	border-top: 4px solid var(--vscode-textLink-foreground);
+	border-radius: 50%;
+	animation: spin 1s linear infinite;
+	margin-bottom: 20px;
+}
+
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+.error-message {
+	position: fixed;
+	top: 20px;
+	right: 20px;
+	background: var(--vscode-inputValidation-errorBackground);
+	color: var(--vscode-inputValidation-errorForeground);
+	padding: 15px 20px;
+	border-radius: 6px;
+	border: 1px solid var(--vscode-inputValidation-errorBorder);
+	max-width: 400px;
+	z-index: 1001;
+	animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+	from {
+		transform: translateX(100%);
+		opacity: 0;
+	}
+
+	to {
+		transform: translateX(0);
+		opacity: 1;
+	}
+}
+
+/* TOP3 Prompts 样式 */
+.top-prompts-container {
+	padding: 20px;
+	max-width: 1000px;
+	margin: 0 auto;
+}
+
+.top-prompt {
+	background: var(--vscode-editor-background);
+	border: 1px solid var(--vscode-widget-border);
+	border-radius: 8px;
+	padding: 25px;
+	margin-bottom: 30px;
+}
+
+.prompt-header {
+	display: flex;
+	align-items: center;
+	gap: 15px;
+	margin-bottom: 20px;
+	padding-bottom: 15px;
+	border-bottom: 1px solid var(--vscode-widget-border);
+}
+
+.rank {
+	background: var(--vscode-badge-background);
+	color: var(--vscode-badge-foreground);
+	padding: 6px 12px;
+	border-radius: 20px;
+	font-weight: bold;
+	font-size: 0.9em;
+}
+
+.score {
+	background: var(--vscode-textLink-foreground);
+	color: white;
+	padding: 4px 10px;
+	border-radius: 12px;
+	font-weight: 500;
+	font-size: 0.9em;
+}
+
+.author {
+	color: var(--vscode-descriptionForeground);
+	font-size: 0.9em;
+}
+
+.prompt-content {
+	margin-bottom: 25px;
+}
+
+.prompt-content h4 {
+	margin-bottom: 10px;
+	font-weight: bold;
+	color: var(--vscode-foreground);
+}
+
+.prompt-content pre {
+	background: var(--vscode-textCodeBlock-background);
+	border: 1px solid var(--vscode-widget-border);
+	border-radius: 6px;
+	padding: 15px;
+	margin: 0;
+	overflow-x: auto;
+	line-height: 1.5;
+	font-family: var(--vscode-editor-font-family);
+}
+
+.prompt-analysis {
+	background: var(--vscode-sideBar-background);
+	border-radius: 6px;
+	padding: 20px;
+}
+
+.prompt-analysis h4 {
+	margin-bottom: 15px;
+	font-weight: bold;
+	color: var(--vscode-textLink-foreground);
+}
+
+.analysis-section {
+	margin-bottom: 20px;
+}
+
+.analysis-section h5 {
+	margin-bottom: 8px;
+	font-weight: 600;
+	color: var(--vscode-foreground);
+}
+
+.analysis-section ul {
+	margin: 0;
+	padding-left: 20px;
+}
+
+.analysis-section li {
+	margin-bottom: 5px;
+	line-height: 1.4;
+}
+
+.analysis-explanation {
+	margin-top: 20px;
+	padding-top: 20px;
+	border-top: 1px solid var(--vscode-widget-border);
+}
+
+.analysis-explanation h5 {
+	margin-bottom: 10px;
+	font-weight: 600;
+	color: var(--vscode-textLink-foreground);
+}
+
+.analysis-explanation p {
+	line-height: 1.6;
+	color: var(--vscode-foreground);
+	margin: 0;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+	.main-content {
+		grid-template-columns: 1fr;
+		gap: 20px;
+	}
+
+	.sidebar {
+		order: 2;
+	}
+
+	.content-area {
+		order: 1;
+	}
+
+	.features {
+		grid-template-columns: 1fr;
+	}
+
+	.prompt-header {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 10px;
+	}
+}

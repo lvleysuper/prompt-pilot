@@ -1,0 +1,112 @@
+{
+	"id": "longest-common-prefix",
+	"title": "最长公共前缀",
+	"description": "编写一个函数来查找字符串数组中的最长公共前缀。如果不存在公共前缀，返回空字符串 \"\"。",
+	"difficulty": "Easy",
+	"category": "字符串",
+	"templateCode": "function longestCommonPrefix(strs: string[]): string {\n    // TODO: 查找最长公共前缀\n    return \"\";\n}",
+	"testCases": [
+		{
+			"id": "case1",
+			"input": "strs = [\"flower\",\"flow\",\"flight\"]",
+			"expectedOutput": "\"fl\"",
+			"description": "公共前缀是 \"fl\""
+		},
+		{
+			"id": "case2",
+			"input": "strs = [\"dog\",\"racecar\",\"car\"]",
+			"expectedOutput": "\"\"",
+			"description": "不存在公共前缀"
+		},
+		{
+			"id": "case3",
+			"input": "strs = [\"ab\", \"a\"]",
+			"expectedOutput": "\"a\"",
+			"description": "公共前缀是 \"a\""
+		}
+	],
+	"topPrompts": [
+		{
+			"id": "prompt1",
+			"rank": 1,
+			"prompt": "请实现查找字符串数组最长公共前缀的函数。要求：1) 处理空数组和空字符串的边界情况 2) 使用垂直扫描方法，逐字符比较所有字符串 3) 一旦发现不匹配立即返回当前前缀 4) 时间复杂度O(S)，S为所有字符串字符总数 5) 提供清晰的实现逻辑和边界处理。",
+			"author": "string_expert",
+			"score": 93,
+			"analysis": {
+				"structure": [
+					"功能要求",
+					"边界处理",
+					"算法方法",
+					"性能分析",
+					"实现要求"
+				],
+				"techniques": [
+					"垂直扫描算法",
+					"边界情况处理",
+					"性能优化",
+					"逻辑清晰性"
+				],
+				"scenarios": [
+					"字符串处理专题",
+					"算法设计",
+					"边界处理"
+				],
+				"explanation": "完整的技术规范，明确了算法选择、性能要求和代码质量标准"
+			},
+			"createdAt": "2024-01-08"
+		},
+		{
+			"id": "prompt2",
+			"rank": 2,
+			"prompt": "找出字符串数组的公共前缀。逐位比较每个字符串的相同位置字符，直到发现不同或到达某个字符串末尾。处理空数组情况。",
+			"author": "algorithm_fan",
+			"score": 86,
+			"analysis": {
+				"structure": [
+					"目标描述",
+					"算法思路",
+					"停止条件",
+					"特殊情况"
+				],
+				"techniques": [
+					"逐位比较",
+					"循环控制",
+					"边界检查"
+				],
+				"scenarios": [
+					"算法实现",
+					"逻辑控制"
+				],
+				"explanation": "提供了清晰的算法思路和实现步骤，适合理解和实现"
+			},
+			"createdAt": "2024-01-09"
+		},
+		{
+			"id": "prompt3",
+			"rank": 3,
+			"prompt": "实现最长公共前缀函数，比较所有字符串找出相同的开头部分。",
+			"author": "simple_dev",
+			"score": 75,
+			"analysis": {
+				"structure": [
+					"基本描述",
+					"操作说明"
+				],
+				"techniques": [
+					"字符串比较",
+					"前缀查找"
+				],
+				"scenarios": [
+					"基础实现"
+				],
+				"explanation": "描述过于简单，缺乏具体的实现指导和技术细节"
+			},
+			"createdAt": "2024-01-10"
+		}
+	],
+	"hints": [
+		"考虑使用垂直扫描方法，逐字符比较",
+		"注意处理空数组和空字符串的情况",
+		"当发现不匹配字符时立即停止并返回结果"
+	]
+}

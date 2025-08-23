@@ -1,0 +1,110 @@
+{
+	"id": "reverse-linked-list",
+	"title": "反转链表",
+	"description": "给你单链表的头节点 head ，请你反转链表，并返回反转后的链表。",
+	"difficulty": "Easy",
+	"category": "链表",
+	"templateCode": "class ListNode {\n    val: number;\n    next: ListNode | null;\n    constructor(val?: number, next?: ListNode | null) {\n        this.val = (val===undefined ? 0 : val);\n        this.next = (next===undefined ? null : next);\n    }\n}\n\nfunction reverseList(head: ListNode | null): ListNode | null {\n    // TODO: 实现链表反转\n    return null;\n}",
+	"testCases": [
+		{
+			"id": "case1",
+			"input": "head = [1,2,3,4,5]",
+			"expectedOutput": "[5,4,3,2,1]",
+			"description": "输入链表 [1,2,3,4,5]，输出反转后的链表 [5,4,3,2,1]"
+		},
+		{
+			"id": "case2",
+			"input": "head = [1,2]",
+			"expectedOutput": "[2,1]",
+			"description": "输入链表 [1,2]，输出反转后的链表 [2,1]"
+		},
+		{
+			"id": "case3",
+			"input": "head = []",
+			"expectedOutput": "[]",
+			"description": "输入空链表，输出空链表"
+		}
+	],
+	"topPrompts": [
+		{
+			"id": "prompt1",
+			"rank": 1,
+			"prompt": "请实现一个函数来反转单链表。要求：1) 使用迭代方法实现 2) 时间复杂度O(n)，空间复杂度O(1) 3) 处理空链表和单节点情况 4) 返回新的头节点。请提供清晰的变量命名和注释说明算法思路。",
+			"author": "algorithm_master",
+			"score": 92,
+			"analysis": {
+				"structure": [
+					"明确问题目标",
+					"技术约束条件",
+					"边界情况处理",
+					"代码质量要求"
+				],
+				"techniques": [
+					"迭代实现要求",
+					"复杂度约束",
+					"边界情况覆盖",
+					"代码规范要求"
+				],
+				"scenarios": [
+					"算法优化场景",
+					"链表操作专题",
+					"代码质量控制"
+				],
+				"explanation": "该prompt结构完整，明确了实现方式、性能要求和代码质量标准，能够指导生成高质量的解决方案"
+			},
+			"createdAt": "2024-01-02"
+		},
+		{
+			"id": "prompt2",
+			"rank": 2,
+			"prompt": "实现链表反转功能。使用三指针技术(prev, curr, next)，通过循环遍历改变每个节点的next指向。需要考虑空链表的情况。",
+			"author": "coding_expert",
+			"score": 85,
+			"analysis": {
+				"structure": [
+					"功能描述",
+					"技术提示",
+					"边界处理"
+				],
+				"techniques": [
+					"三指针技术提示",
+					"具体实现方法",
+					"边界条件"
+				],
+				"scenarios": [
+					"算法实现指导",
+					"技术细节说明"
+				],
+				"explanation": "提供了具体的技术实现提示，对于有一定基础的开发者很有帮助"
+			},
+			"createdAt": "2024-01-03"
+		},
+		{
+			"id": "prompt3",
+			"rank": 3,
+			"prompt": "写一个反转链表的函数，要求原地反转，不使用额外空间。",
+			"author": "simple_coder",
+			"score": 78,
+			"analysis": {
+				"structure": [
+					"基本需求",
+					"空间约束"
+				],
+				"techniques": [
+					"原地反转",
+					"空间复杂度要求"
+				],
+				"scenarios": [
+					"基础算法实现"
+				],
+				"explanation": "简洁明了，但缺少详细的实现指导和边界情况说明"
+			},
+			"createdAt": "2024-01-04"
+		}
+	],
+	"hints": [
+		"考虑使用三个指针：prev、curr、next",
+		"在改变curr.next之前先保存next节点",
+		"注意处理空链表和单节点的特殊情况"
+	]
+}

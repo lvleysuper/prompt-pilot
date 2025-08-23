@@ -1,0 +1,118 @@
+{
+  "name": "prompt-pilot",
+  "displayName": "Prompt Pilot",
+  "description": "提升团队Prompt能力的VSCode插件",
+  "version": "0.0.1",
+  "publisher": "prompt-pilot",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/prompt-pilot/vscode-extension"
+  },
+  "bugs": {
+    "url": "https://github.com/prompt-pilot/vscode-extension/issues"
+  },
+  "homepage": "https://github.com/prompt-pilot/vscode-extension",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.103.0"
+  },
+  "categories": [
+    "Other",
+    "Education",
+    "Testing"
+  ],
+  "keywords": [
+    "prompt",
+    "ai",
+    "llm",
+    "code generation",
+    "learning"
+  ],
+  "activationEvents": [],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "prompt-pilot.openPanel",
+        "title": "打开 Prompt Pilot",
+        "category": "Prompt Pilot"
+      },
+      {
+        "command": "prompt-pilot.selectProblem",
+        "title": "选择题目",
+        "category": "Prompt Pilot"
+      },
+      {
+        "command": "prompt-pilot.viewTopPrompts",
+        "title": "查看TOP3 Prompts",
+        "category": "Prompt Pilot"
+      }
+    ],
+    "views": {
+      "explorer": [
+        {
+          "id": "promptPilotExplorer",
+          "name": "Prompt Pilot",
+          "when": "true"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "prompt-pilot",
+          "title": "Prompt Pilot",
+          "icon": "$(rocket)"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Prompt Pilot",
+      "properties": {
+        "promptPilot.apiKey": {
+          "type": "string",
+          "default": "",
+          "description": "大模型API密钥"
+        },
+        "promptPilot.apiEndpoint": {
+          "type": "string",
+          "default": "https://api.openai.com/v1/chat/completions",
+          "description": "大模型API端点"
+        },
+        "promptPilot.model": {
+          "type": "string",
+          "default": "gpt-3.5-turbo",
+          "description": "使用的模型名称"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "dependencies": {
+    "axios": "^1.11.0"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "22.x",
+    "@types/vscode": "^1.103.0",
+    "@typescript-eslint/eslint-plugin": "^8.39.0",
+    "@typescript-eslint/parser": "^8.39.0",
+    "@vscode/test-cli": "^0.0.11",
+    "@vscode/test-electron": "^2.5.2",
+    "eslint": "^9.32.0",
+    "ts-loader": "^9.5.2",
+    "typescript": "^5.9.2",
+    "webpack": "^5.101.0",
+    "webpack-cli": "^6.0.1"
+  }
+}
