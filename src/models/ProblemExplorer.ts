@@ -140,6 +140,7 @@ class ProblemItem extends vscode.TreeItem {
 		super(label, collapsibleState);
 		this.tooltip = `${this.label} - ${difficulty}`;
 		this.description = difficulty;
+		this.contextValue = 'problem'; // 为菜单项添加上下文值
 
 		// 根据难度设置图标颜色
 		this.iconPath = this.getDifficultyIcon(difficulty);

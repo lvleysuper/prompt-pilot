@@ -35,24 +35,38 @@
       {
         "command": "prompt-pilot.openPanel",
         "title": "打开 Prompt Pilot",
-        "category": "Prompt Pilot"
+        "category": "Prompt Pilot",
+        "icon": "$(play)"
       },
       {
         "command": "prompt-pilot.selectProblem",
         "title": "选择题目",
-        "category": "Prompt Pilot"
+        "category": "Prompt Pilot",
+        "icon": "$(list-selection)"
       },
       {
         "command": "prompt-pilot.viewTopPrompts",
         "title": "查看TOP3 Prompts",
-        "category": "Prompt Pilot"
+        "category": "Prompt Pilot",
+        "icon": "$(star)"
+      },
+      {
+        "command": "prompt-pilot.refreshProblems",
+        "title": "刷新题目列表",
+        "category": "Prompt Pilot",
+        "icon": "$(refresh)"
       }
     ],
     "views": {
-      "explorer": [
+      "prompt-pilot": [
         {
           "id": "promptPilotExplorer",
-          "name": "Prompt Pilot",
+          "name": "题目列表",
+          "when": "true"
+        },
+        {
+          "id": "promptPilotActions",
+          "name": "快速操作",
           "when": "true"
         }
       ]
@@ -63,6 +77,27 @@
           "id": "prompt-pilot",
           "title": "Prompt Pilot",
           "icon": "$(rocket)"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "prompt-pilot.refreshProblems",
+          "when": "view == promptPilotExplorer",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "prompt-pilot.openPanel",
+          "when": "view == promptPilotExplorer && viewItem == problem",
+          "group": "inline"
+        },
+        {
+          "command": "prompt-pilot.viewTopPrompts",
+          "when": "view == promptPilotExplorer && viewItem == problem",
+          "group": "inline"
         }
       ]
     },
