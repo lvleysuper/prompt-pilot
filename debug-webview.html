@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Prompt Pilot Debug - WebView</title>
+	<link rel="stylesheet" href="./media/main.css">
+</head>
+
+<body>
+	<div class="container">
+		<header>
+			<h1>🚀 Prompt Pilot</h1>
+			<p>提升团队 Prompt 能力的 VSCode 插件</p>
+		</header>
+
+		<div class="main-content">
+			<!-- 侧边栏 -->
+			<div class="sidebar">
+				<div class="problem-selector">
+					<h3>📚 题目列表</h3>
+					<div class="problem-list" id="problemList">
+						<!-- 题目列表将动态生成 -->
+						<div class="problem-item active" data-problem-id="1">
+							<div class="title">两数之和</div>
+							<div class="difficulty Easy">Easy</div>
+							<div class="category">Array</div>
+						</div>
+						<div class="problem-item" data-problem-id="2">
+							<div class="title">反转链表</div>
+							<div class="difficulty Medium">Medium</div>
+							<div class="category">Linked List</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- 内容区域 -->
+			<div class="content-area">
+				<!-- 欢迎屏幕 -->
+				<div id="welcomeScreen" class="welcome-screen" style="display: none;">
+					<div class="welcome-content">
+						<h2>🎯 选择一个题目开始</h2>
+						<p>从左侧选择一个编程题目，开始你的 Prompt 练习之旅</p>
+					</div>
+				</div>
+
+				<!-- 问题详情 -->
+				<div id="problemDetails" class="problem-details">
+					<div class="problem-header">
+						<h2 id="problemTitle">两数之和</h2>
+						<span id="problemDifficulty" class="difficulty Easy">Easy</span>
+					</div>
+
+					<div class="problem-description" id="problemDescription">
+						给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出和为目标值的那两个整数，并返回它们的数组下标。
+					</div>
+
+					<!-- Prompt 输入区域 -->
+					<div class="prompt-section">
+						<h3>✏️ 编写你的 Prompt</h3>
+						<div class="prompt-tips">
+							<p>💡 提示：好的 Prompt 应该清晰描述问题、包含示例、指定输出格式</p>
+						</div>
+						<textarea id="promptInput"
+							placeholder="请输入你的 Prompt...&#10;&#10;例如：&#10;请帮我解决这个算法问题..."></textarea>
+						<div class="prompt-actions">
+							<button class="btn primary" id="generateCodeBtn">🚀 生成代码</button>
+							<button class="btn secondary" id="analyzePromptBtn">🔍 分析 Prompt</button>
+						</div>
+					</div>
+
+					<!-- Prompt 分析结果 -->
+					<div id="promptAnalysis" class="prompt-analysis" style="display: none;">
+						<!-- 分析结果将在这里显示 -->
+					</div>
+
+					<!-- 代码生成区域 -->
+					<div id="codeSection" class="code-section" style="display: none;">
+						<h3>💻 生成的代码</h3>
+						<div class="code-container">
+							<pre><code id="generatedCode">// 代码将在这里显示</code></pre>
+						</div>
+						<div class="code-actions">
+							<button class="btn primary" id="runTestsBtn">🧪 运行测试</button>
+							<button class="btn secondary" id="acceptCodeBtn">✅ 接受代码</button>
+						</div>
+					</div>
+
+					<!-- 代码说明 -->
+					<div id="explanation" class="explanation" style="display: none;">
+						<!-- 代码说明将在这里显示 -->
+					</div>
+
+					<!-- 测试结果区域 -->
+					<div id="testSection" class="test-section" style="display: none;">
+						<h3>🧪 测试结果</h3>
+						<div id="testResults" class="test-results">
+							<!-- 测试结果将在这里显示 -->
+						</div>
+					</div>
+
+					<!-- 提示区域 -->
+					<div class="hints-section">
+						<h3>💡 提示</h3>
+						<div class="hints" id="problemHints">
+							<ul>
+								<li>可以使用哈希表来降低时间复杂度</li>
+								<li>遍历数组时，检查目标值减去当前元素的值是否存在于哈希表中</li>
+								<li>注意处理重复元素的情况</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 加载遮罩 -->
+	<div id="loadingOverlay" class="loading-overlay" style="display: none;">
+		<div class="loading-spinner"></div>
+		<div id="loadingMessage">加载中...</div>
+	</div>
+
+	<!-- 错误消息 -->
+	<div id="errorMessage" class="error-message" style="display: none;">
+		错误消息将在这里显示
+	</div>
+
+	<!-- 模拟VSCode API -->
+	<script>
+		// 模拟 vscode API 用于调试
+		window.acquireVsCodeApi = () => ({
+			postMessage: (message) => {
+				console.log('📤 发送消息到扩展:', message);
+
+				// 模拟扩展响应
+				setTimeout(() => {
+					switch (message.command) {
+						case 'loadProblems':
+							window.postMessage({
+								command: 'problemsLoaded',
+								problems: [
+									{ id: '1', title: '两数之和', difficulty: 'Easy', category: 'Array' },
+									{ id: '2', title: '反转链表', difficulty: 'Medium', category: 'Linked List' }
+								]
+							});
+							break;
+						case 'loadProblem':
+							window.postMessage({
+								command: 'problemLoaded',
+								problem: {
+									id: message.problemId,
+									title: '两数之和',
+									difficulty: 'Easy',
+									description: '给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出和为目标值的那两个整数，并返回它们的数组下标。',
+									hints: [
+										'可以使用哈希表来降低时间复杂度',
+										'遍历数组时，检查目标值减去当前元素的值是否存在于哈希表中',
+										'注意处理重复元素的情况'
+									]
+								}
+							});
+							break;
+						case 'generateCode':
+							window.postMessage({
+								command: 'codeGenerated',
+								response: {
+									success: true,
+									generatedCode: `function twoSum(nums, target) {
+    const map = new Map();
+    for (let i = 0; i < nums.length; i++) {
+        const complement = target - nums[i];
+        if (map.has(complement)) {
+            return [map.get(complement), i];
+        }
+        map.set(nums[i], i);
+    }
+    return [];
+}`,
+									explanation: '使用哈希表存储已遍历的元素及其索引，当找到目标值的补数时返回结果。'
+								}
+							});
+							break;
+					}
+				}, 1000);
+			}
+		});
+	</script>
+
+	<!-- 加载主要的 JavaScript 文件 -->
+	<script src="./media/main.js"></script>
+
+	<script>
+		// 调试信息
+		console.log('🔧 调试模式启动');
+		console.log('📍 当前URL:', window.location.href);
+		console.log('🌐 User Agent:', navigator.userAgent);
+
+		// 添加额外的调试信息
+		window.addEventListener('load', function () {
+			console.log('✅ 页面完全加载');
+			console.log('📊 DOM元素数量:', document.querySelectorAll('*').length);
+		});
+	</script>
+</body>
+
+</html>

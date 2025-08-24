@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Prompt Pilot Debug</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			padding: 20px;
+			background: #1e1e1e;
+			color: #ffffff;
+		}
+
+		.container {
+			max-width: 800px;
+			margin: 0 auto;
+		}
+
+		.status {
+			padding: 10px;
+			margin: 10px 0;
+			border-radius: 5px;
+		}
+
+		.success {
+			background: #28a745;
+		}
+
+		.error {
+			background: #dc3545;
+		}
+
+		.warning {
+			background: #ffc107;
+			color: #000;
+		}
+
+		button {
+			padding: 10px 20px;
+			margin: 5px;
+			border: none;
+			border-radius: 5px;
+			background: #007acc;
+			color: white;
+			cursor: pointer;
+		}
+
+		button:hover {
+			background: #005a9e;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<h1>🚀 Prompt Pilot 调试面板</h1>
+
+		<div id="status" class="status warning">
+			正在初始化调试面板...
+		</div>
+
+		<div>
+			<h3>手动测试按钮</h3>
+			<button onclick="testVSCodeAPI()">测试VSCode API</button>
+			<button onclick="testElements()">检查DOM元素</button>
+			<button onclick="showAlert()">显示测试弹窗</button>
+		</div>
+
+		<div>
+			<h3>调试信息</h3>
+			<div id="debugInfo">
+				<p>页面加载状态: <span id="readyState">检查中...</span></p>
+				<p>VSCode API: <span id="vscodeAPI">检查中...</span></p>
+				<p>关键元素: <span id="elements">检查中...</span></p>
+			</div>
+		</div>
+
+		<div>
+			<h3>调试日志</h3>
+			<div id="log"
+				style="background: #2d2d2d; padding: 10px; border-radius: 5px; height: 200px; overflow-y: auto; font-family: monospace;">
+			</div>
+		</div>
+	</div>
+
+	<script>
+		// 调试日志函数
+		function log(message) {
+			const logDiv = document.getElementById('log');
+			const time = new Date().toLocaleTimeString();
+			logDiv.innerHTML += `[${time}] ${message}<br>`;
+			logDiv.scrollTop = logDiv.scrollHeight;
+			console.log(message);
+		}
+
+		// 更新状态
+		function updateStatus(message, type = 'warning') {
+			const statusDiv = document.getElementById('status');
+			statusDiv.textContent = message;
+			statusDiv.className = `status ${type}`;
+			log(`状态更新: ${message}`);
+		}
+
+		// 测试VSCode API
+		function testVSCodeAPI() {
+			try {
+				const vscode = acquireVsCodeApi();
+				document.getElementById('vscodeAPI').textContent = '✅ 可用';
+				log('✅ VSCode API 测试成功');
+
+				// 尝试发送消息
+				vscode.postMessage({ command: 'test', message: 'Hello from WebView' });
+				log('📤 已发送测试消息到扩展');
+
+				updateStatus('VSCode API 测试成功', 'success');
+			} catch (error) {
+				document.getElementById('vscodeAPI').textContent = '❌ 失败: ' + error.message;
+				log('❌ VSCode API 测试失败: ' + error.message);
+				updateStatus('VSCode API 测试失败', 'error');
+			}
+		}
+
+		// 检查DOM元素
+		function testElements() {
+			const requiredElements = ['status', 'debugInfo', 'log'];
+			const results = [];
+
+			requiredElements.forEach(id => {
+				const element = document.getElementById(id);
+				if (element) {
+					results.push(`✅ ${id}`);
+				} else {
+					results.push(`❌ ${id}`);
+				}
+			});
+
+			document.getElementById('elements').innerHTML = results.join('<br>');
+			log('DOM元素检查完成: ' + results.join(', '));
+		}
+
+		// 显示测试弹窗
+		function showAlert() {
+			alert('🎉 调试面板正常工作！');
+			log('🎉 弹窗测试成功');
+		}
+
+		// 页面加载时执行
+		window.addEventListener('load', function () {
+			log('🚀 调试面板开始初始化');
+
+			// 检查页面状态
+			document.getElementById('readyState').textContent = document.readyState;
+
+			// 自动执行测试
+			setTimeout(() => {
+				testVSCodeAPI();
+				testElements();
+				updateStatus('调试面板初始化完成', 'success');
+				log('🎉 所有初始化测试完成');
+			}, 1000);
+		});
+
+		// 监听来自扩展的消息
+		window.addEventListener('message', function (event) {
+			const message = event.data;
+			log('📨 收到扩展消息: ' + JSON.stringify(message));
+		});
+
+		// 全局错误处理
+		window.addEventListener('error', function (e) {
+			log('❌ 全局错误: ' + e.error?.message || '未知错误');
+			updateStatus('发生JavaScript错误', 'error');
+		});
+	</script>
+</body>
+
+</html>

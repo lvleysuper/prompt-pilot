@@ -1,0 +1,351 @@
+/* Prompt Pilot 配置页面样式 */
+
+.config-container {
+	max-width: 800px;
+	margin: 0 auto;
+	padding: 20px;
+	color: var(--vscode-foreground);
+}
+
+.config-header {
+	text-align: center;
+	margin-bottom: 40px;
+	padding-bottom: 20px;
+	border-bottom: 1px solid var(--vscode-widget-border);
+}
+
+.config-header h1 {
+	font-size: 2.2em;
+	font-weight: bold;
+	margin-bottom: 8px;
+	color: var(--vscode-textLink-foreground);
+}
+
+.config-header p {
+	color: var(--vscode-descriptionForeground);
+	font-size: 1.1em;
+}
+
+.config-content {
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
+}
+
+.config-section {
+	background: var(--vscode-editor-background);
+	border: 1px solid var(--vscode-widget-border);
+	border-radius: 8px;
+	padding: 24px;
+}
+
+.config-section h2 {
+	font-size: 1.4em;
+	font-weight: 600;
+	margin-bottom: 20px;
+	color: var(--vscode-foreground);
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+/* 提供商选择 */
+.provider-selector {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	gap: 16px;
+}
+
+.provider-option {
+	display: flex;
+	align-items: center;
+	padding: 16px;
+	border: 2px solid var(--vscode-widget-border);
+	border-radius: 8px;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	position: relative;
+}
+
+.provider-option:hover {
+	border-color: var(--vscode-focusBorder);
+	background: var(--vscode-list-hoverBackground);
+}
+
+.provider-option.selected {
+	border-color: var(--vscode-textLink-foreground);
+	background: var(--vscode-list-activeSelectionBackground);
+}
+
+.provider-icon {
+	font-size: 2em;
+	margin-right: 12px;
+}
+
+.provider-info h3 {
+	font-size: 1.1em;
+	font-weight: 600;
+	margin-bottom: 4px;
+	color: var(--vscode-foreground);
+}
+
+.provider-info p {
+	color: var(--vscode-descriptionForeground);
+	font-size: 0.9em;
+	margin: 0;
+}
+
+.provider-option input[type="radio"] {
+	position: absolute;
+	right: 16px;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+/* 表单样式 */
+.form-group {
+	margin-bottom: 20px;
+}
+
+.form-row {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 20px;
+}
+
+.form-group label {
+	display: block;
+	font-weight: 500;
+	margin-bottom: 6px;
+	color: var(--vscode-foreground);
+}
+
+.form-group input,
+.form-group select {
+	width: 100%;
+	padding: 8px 12px;
+	border: 1px solid var(--vscode-widget-border);
+	border-radius: 4px;
+	background: var(--vscode-input-background);
+	color: var(--vscode-input-foreground);
+	font-size: 14px;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+	outline: none;
+	border-color: var(--vscode-focusBorder);
+	box-shadow: 0 0 0 1px var(--vscode-focusBorder);
+}
+
+.form-group small {
+	display: block;
+	margin-top: 4px;
+	color: var(--vscode-descriptionForeground);
+	font-size: 12px;
+}
+
+.checkbox-label {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+	width: auto;
+}
+
+/* 按钮样式 */
+.config-actions {
+	display: flex;
+	gap: 12px;
+	flex-wrap: wrap;
+	justify-content: center;
+	padding: 20px 0;
+	border-top: 1px solid var(--vscode-widget-border);
+}
+
+.btn {
+	padding: 10px 20px;
+	border: none;
+	border-radius: 6px;
+	font-weight: 500;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	font-size: 14px;
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}
+
+.btn:hover {
+	transform: translateY(-1px);
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.btn:active {
+	transform: translateY(0);
+}
+
+.btn:disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
+	transform: none;
+}
+
+.btn-test {
+	background: var(--vscode-button-secondaryBackground);
+	color: var(--vscode-button-secondaryForeground);
+}
+
+.btn-test:hover {
+	background: var(--vscode-button-secondaryHoverBackground);
+}
+
+.btn-validate {
+	background: var(--vscode-testing-iconPassed);
+	color: white;
+}
+
+.btn-validate:hover {
+	background: #0e7c0e;
+}
+
+.btn-save {
+	background: var(--vscode-button-background);
+	color: var(--vscode-button-foreground);
+}
+
+.btn-save:hover {
+	background: var(--vscode-button-hoverBackground);
+}
+
+.btn-reset {
+	background: var(--vscode-testing-iconFailed);
+	color: white;
+}
+
+.btn-reset:hover {
+	background: #c72e29;
+}
+
+/* 状态显示 */
+.status-section {
+	background: var(--vscode-textCodeBlock-background);
+	border: 1px solid var(--vscode-widget-border);
+	border-radius: 8px;
+	padding: 20px;
+	margin-top: 20px;
+}
+
+.status-content {
+	font-family: var(--vscode-editor-font-family);
+	font-size: 14px;
+	line-height: 1.5;
+}
+
+.status-success {
+	color: var(--vscode-testing-iconPassed);
+}
+
+.status-error {
+	color: var(--vscode-testing-iconFailed);
+}
+
+.status-warning {
+	color: var(--vscode-testing-iconQueued);
+}
+
+.status-loading {
+	color: var(--vscode-textLink-foreground);
+}
+
+/* 加载动画 */
+.loading {
+	display: inline-block;
+	animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+/* 必填字段标识 */
+.form-group label::after {
+	content: "";
+}
+
+.form-group.required label::after {
+	content: " *";
+	color: var(--vscode-testing-iconFailed);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+	.config-container {
+		padding: 16px;
+	}
+
+	.provider-selector {
+		grid-template-columns: 1fr;
+	}
+
+	.form-row {
+		grid-template-columns: 1fr;
+	}
+
+	.config-actions {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.btn {
+		width: 100%;
+		justify-content: center;
+		max-width: 200px;
+	}
+}
+
+/* 隐藏配置区域的平滑过渡 */
+.config-section {
+	transition: opacity 0.3s ease, max-height 0.3s ease;
+	overflow: hidden;
+}
+
+.config-section[style*="display: none"] {
+	opacity: 0;
+	max-height: 0;
+	padding: 0;
+	margin: 0;
+	border: none;
+}
+
+/* 验证状态样式 */
+.form-group.valid input,
+.form-group.valid select {
+	border-color: var(--vscode-testing-iconPassed);
+}
+
+.form-group.invalid input,
+.form-group.invalid select {
+	border-color: var(--vscode-testing-iconFailed);
+}
+
+.form-group .error-message {
+	color: var(--vscode-testing-iconFailed);
+	font-size: 12px;
+	margin-top: 4px;
+}
+
+.form-group .success-message {
+	color: var(--vscode-testing-iconPassed);
+	font-size: 12px;
+	margin-top: 4px;
+}

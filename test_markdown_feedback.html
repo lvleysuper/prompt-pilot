@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Markdown 反馈格式测试</title>
+	<link rel="stylesheet" href="media/main.css">
+	<style>
+		body {
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			max-width: 800px;
+			margin: 0 auto;
+			padding: 20px;
+			background: #1e1e1e;
+			color: #cccccc;
+		}
+
+		.test-section {
+			margin: 30px 0;
+			padding: 20px;
+			background: #252526;
+			border-radius: 8px;
+			border: 1px solid #464647;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>🧪 Markdown 反馈格式测试</h1>
+
+	<div class="test-section">
+		<h3>测试 1: 多句子反馈</h3>
+		<div id="test1" class="feedback-markdown"></div>
+	</div>
+
+	<div class="test-section">
+		<h3>测试 2: 单句子反馈</h3>
+		<div id="test2" class="feedback-markdown"></div>
+	</div>
+
+	<div class="test-section">
+		<h3>测试 3: 空反馈</h3>
+		<div id="test3" class="feedback-markdown"></div>
+	</div>
+
+	<script>
+		// 从main.js中复制formatFeedbackAsMarkdown函数和escapeHtml函数
+		function escapeHtml(str) {
+			return str.replace(/&/g, '&amp;')
+				.replace(/</g, '&lt;')
+				.replace(/>/g, '&gt;')
+				.replace(/"/g, '&quot;')
+				.replace(/'/g, '&#39;');
+		}
+
+		function formatFeedbackAsMarkdown(feedback) {
+			if (!feedback || feedback === '暂无详细反馈') {
+				return '<div class="no-feedback">💡 暂无详细反馈</div>';
+			}
+
+			// 按句子分割反馈内容
+			const sentences = feedback.split(/[。！？.!?]/).filter(s => s.trim().length > 0);
+
+			if (sentences.length <= 1) {
+				// 如果只有一句话，直接显示
+				return `<div class="feedback-single">${escapeHtml(feedback)}</div>`;
+			}
+
+			// 转换为无序列表格式
+			const listItems = sentences.map(sentence => {
+				const trimmed = sentence.trim();
+				if (trimmed) {
+					return `<li class="feedback-item">🔹 ${escapeHtml(trimmed)}</li>`;
+				}
+				return '';
+			}).filter(item => item !== '').join('');
+
+			return `<ul class="feedback-list">${listItems}</ul>`;
+		}
+
+		// 测试数据
+		const testData = [
+			{
+				id: 'test1',
+				feedback: '您的Prompt结构清晰，目标明确。技术要求描述较为具体，涵盖了主要的功能需求。代码示例和输出格式的期望比较明确。在技术栈选择方面给出了合理的建议。'
+			},
+			{
+				id: 'test2',
+				feedback: '这是一个简单的单句反馈测试'
+			},
+			{
+				id: 'test3',
+				feedback: ''
+			}
+		];
+
+		// 运行测试
+		testData.forEach(test => {
+			const container = document.getElementById(test.id);
+			container.innerHTML = formatFeedbackAsMarkdown(test.feedback);
+		});
+
+		console.log('✅ Markdown 反馈格式测试完成');
+	</script>
+</body>
+
+</html>

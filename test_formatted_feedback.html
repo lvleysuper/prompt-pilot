@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>格式化反馈测试</title>
+	<link rel="stylesheet" href="media/main.css">
+	<style>
+		body {
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			max-width: 800px;
+			margin: 0 auto;
+			padding: 20px;
+			background: #1e1e1e;
+			color: #cccccc;
+		}
+
+		.test-section {
+			margin: 30px 0;
+			padding: 20px;
+			background: #252526;
+			border-radius: 8px;
+			border: 1px solid #464647;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>🧪 格式化反馈测试</h1>
+
+	<div class="test-section">
+		<h3>测试 1: 完整分析数据</h3>
+		<div id="test1" class="feedback-markdown"></div>
+	</div>
+
+	<div class="test-section">
+		<h3>测试 2: 无改进建议</h3>
+		<div id="test2" class="feedback-markdown"></div>
+	</div>
+
+	<div class="test-section">
+		<h3>测试 3: 空反馈</h3>
+		<div id="test3" class="feedback-markdown"></div>
+	</div>
+
+	<script>
+		// 从main.js中复制escapeHtml函数和formatFeedbackAsMarkdown函数
+		function escapeHtml(str) {
+			return str.replace(/&/g, '&amp;')
+				.replace(/</g, '&lt;')
+				.replace(/>/g, '&gt;')
+				.replace(/"/g, '&quot;')
+				.replace(/'/g, '&#39;');
+		}
+
+		// 将反馈内容格式化为指定格式
+		function formatFeedbackAsMarkdown(analysis) {
+			if (!analysis || !analysis.feedback || analysis.feedback === '暂无详细反馈') {
+				return '<div class="no-feedback">💡 暂无详细反馈</div>';
+			}
+
+			// 获取评分
+			const score = analysis.score || 0;
+
+			// 格式化改进建议
+			let improvementsText = '';
+			if (analysis.improvements && analysis.improvements.length > 0) {
+				improvementsText = analysis.improvements.map((improvement, index) =>
+					`${index + 1}. ${improvement}`
+				).join('\n');
+			} else {
+				improvementsText = '暂无改进建议';
+			}
+
+			// 构建格式化文本
+			const formattedText = `
+1. 评分：${score}/100
+2. 详细反馈：${analysis.feedback}
+3. 改建建议：
+${improvementsText}
+`;
+
+			// 转义HTML并保持换行格式
+			return `<pre class="feedback-formatted">${escapeHtml(formattedText)}</pre>`;
+		}
+
+		// 测试数据
+		const testData = [
+			{
+				id: 'test1',
+				analysis: {
+					score: 85,
+					feedback: '您的Prompt结构清晰，目标明确。技术要求描述较为具体，涵盖了主要的功能需求。代码示例和输出格式的期望比较明确。在技术栈选择方面给出了合理的建议。',
+					improvements: [
+						'增加更具体的技术要求和约束条件',
+						'提供示例输入输出以明确期望结果',
+						'指定代码风格和最佳实践要求'
+					]
+				}
+			},
+			{
+				id: 'test2',
+				analysis: {
+					score: 92,
+					feedback: '这是一个优秀的Prompt，具有清晰的结构和明确的需求描述。',
+					improvements: []
+				}
+			},
+			{
+				id: 'test3',
+				analysis: {
+					score: 0,
+					feedback: '',
+					improvements: []
+				}
+			}
+		];
+
+		// 运行测试
+		testData.forEach(test => {
+			const container = document.getElementById(test.id);
+			container.innerHTML = formatFeedbackAsMarkdown(test.analysis);
+		});
+
+		console.log('✅ 格式化反馈测试完成');
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>结构化输出演示 - Prompt Pilot</title>
+	<link rel="stylesheet" href="media/main.css">
+	<style>
+		body {
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 20px;
+			background: #1e1e1e;
+			color: #cccccc;
+		}
+
+		.demo-header {
+			text-align: center;
+			margin-bottom: 40px;
+			padding: 30px;
+			background: #252526;
+			border-radius: 8px;
+			border: 1px solid #464647;
+		}
+
+		.demo-controls {
+			text-align: center;
+			margin: 30px 0;
+		}
+
+		.btn {
+			background: #0e639c;
+			color: white;
+			border: none;
+			padding: 12px 20px;
+			border-radius: 4px;
+			cursor: pointer;
+			margin: 10px;
+		}
+
+		.btn.secondary {
+			background: #5a5a5a;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="demo-header">
+		<h1>🎨 Prompt Pilot 结构化输出演示</h1>
+		<p>展示新的"分析Prompt"和"生成代码"功能的结构化界面设计</p>
+	</div>
+
+	<div class="demo-controls">
+		<button class="btn" onclick="showPromptAnalysis()">📊 展示 Prompt 分析结果</button>
+		<button class="btn secondary" onclick="showCodeGeneration()">🚀 展示代码生成结果</button>
+		<button class="btn secondary" onclick="clearDemo()">🗑️ 清除演示</button>
+	</div>
+
+	<div id="promptAnalysisDemo" style="margin: 40px 0;">
+		<h2>1. Prompt 分析结果（结构化输出）</h2>
+		<p style="text-align: center; color: #9d9d9d; padding: 40px;">点击上方按钮查看 Prompt 分析结果演示</p>
+	</div>
+
+	<div id="codeGenerationDemo" style="margin: 40px 0;">
+		<h2>2. 代码生成结果（结构化输出）</h2>
+		<p style="text-align: center; color: #9d9d9d; padding: 40px;">点击上方按钮查看代码生成结果演示</p>
+	</div>
+
+	<script src="media/main.js"></script>
+	<script>
+		// 演示函数
+		function showPromptAnalysis() {
+			const score = 85;
+			const mockAnalysis = {
+				score: score,
+				feedback: '您的Prompt结构清晰，目标明确。技术要求描述较为具体，涵盖了主要的功能需求。代码示例和输出格式的期望比较明确。在技术栈选择方面给出了合理的建议。',
+				improvements: [
+					'增加更具体的技术要求和约束条件',
+					'提供示例输入输出以明确期望结果',
+					'指定代码风格和最佳实践要求'
+				]
+			};
+
+			// 使用主程序中的handlePromptAnalyzed函数
+			if (typeof handlePromptAnalyzed === 'function') {
+				const container = document.getElementById('promptAnalysisDemo');
+				container.innerHTML = '<h2>1. Prompt 分析结果（结构化输出）</h2>';
+				handlePromptAnalyzed(mockAnalysis);
+			}
+		}
+
+		function showCodeGeneration() {
+			const mockCode = `class Calculator {
+    add(a: number, b: number): number {
+        return a + b;
+    }
+}`;
+
+			const mockResponse = {
+				success: true,
+				generatedCode: mockCode,
+				explanation: '这是一个简单的TypeScript计算器类实现。'
+			};
+
+			// 使用主程序中的handleCodeGenerated函数
+			if (typeof handleCodeGenerated === 'function') {
+				const container = document.getElementById('codeGenerationDemo');
+				container.innerHTML = '<h2>2. 代码生成结果（结构化输出）</h2>';
+				handleCodeGenerated(mockResponse);
+			}
+		}
+
+		function clearDemo() {
+			document.getElementById('promptAnalysisDemo').innerHTML = '<h2>1. Prompt 分析结果（结构化输出）</h2><p style="text-align: center; color: #9d9d9d; padding: 40px;">点击上方按钮查看 Prompt 分析结果演示</p>';
+			document.getElementById('codeGenerationDemo').innerHTML = '<h2>2. 代码生成结果（结构化输出）</h2><p style="text-align: center; color: #9d9d9d; padding: 40px;">点击上方按钮查看代码生成结果演示</p>';
+		}
+	</script>
+</body>
+
+</html>
