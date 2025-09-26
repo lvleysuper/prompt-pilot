@@ -1,3 +1,43 @@
+{
+	// 使用 npm 脚本进行构建与监听
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "npm: compile",
+			"type": "npm",
+			"script": "compile",
+			"group": "build",
+			"problemMatcher": [
+				"$tsc"
+			]
+		},
+		{
+			"label": "npm: watch",
+			"type": "npm",
+			"script": "watch",
+			"isBackground": true,
+			"problemMatcher": [
+				{
+					"owner": "webpack",
+					"fileLocation": [
+						"auto"
+					],
+					"pattern": {
+						"regexp": "^.*$",
+						"file": 1,
+						"location": 2,
+						"message": 3
+					},
+					"background": {
+						"activeOnStart": true,
+						"beginsPattern": "^.*webpack.*watching.*$",
+						"endsPattern": "^.*compiled successfully.*$"
+					}
+				}
+			]
+		}
+	]
+}
 // See https://go.microsoft.com/fwlink/?LinkId=733558
 // for the documentation about the tasks.json format
 {

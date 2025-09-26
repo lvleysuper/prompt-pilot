@@ -28,7 +28,18 @@
     "code generation",
     "learning"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onCommand:prompt-pilot.openPanel",
+    "onCommand:prompt-pilot.selectProblem",
+    "onCommand:prompt-pilot.viewTopPrompts",
+    "onCommand:prompt-pilot.refreshProblems",
+    "onCommand:prompt-pilot.configureAPI",
+    "onCommand:prompt-pilot.validateAPI",
+    "onCommand:prompt-pilot.showAPIStatus",
+    "onCommand:prompt-pilot.openConfigPanel",
+    "onView:promptPilotExplorer",
+    "onView:promptPilotActions"
+  ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
